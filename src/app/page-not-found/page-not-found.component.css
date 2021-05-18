@@ -1,0 +1,95 @@
+* {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+p {
+  font-size: 1.45em;
+  margin-bottom: 1.25em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 20px;
+  font: bold 3.4em Bitter,Georgia,Geneva,serif;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+}
+
+h1 {
+  font-size: 3.8em;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 3.6em;
+}
+
+h3 {
+  font-size: 2.4em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h5 {
+  font-size: 1.2em;
+}
+
+h6 {
+  font-size: 1.0em;
+}
+
+a {
+  color: #205f73;
+  text-decoration: underline;
+}
+
+  a:hover, a:focus, a:active {
+    color: #fff;
+  }
+
+#e404 {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+  #e404 #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #e404 #content {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #8fb7c1 url(src/assets/404-bg-content-a.jpg) repeat-x;
+  }
+
+    #e404 #content div.outer {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background: url(src/assets/404-bg-content-b.jpg) 50% 0 no-repeat;
+    }
+
+  #e404 #error {
+    width: 500px;
+    min-height: 135px;
+    margin: 100px auto 0;
+    padding: 105px 0 110px 285px;
+    background: url(src/assets/404-shinobi.png) no-repeat;
+    color: #fff;
+  }
+
+    #e404 #error h1 {
+      margin: 0 0 5px -2px;
+      font-size: 2.4em;
+    }
