@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PosRoutingModule } from './pos-routing.module';
 import { PosComponent } from './pos/pos.component';
 import { PosDashboardComponent } from './pos-dashboard/pos-dashboard.component';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { PosDashboardComponent } from './pos-dashboard/pos-dashboard.component';
   ],
   imports: [
     CommonModule,
+    NgbCollapseModule,
     PosRoutingModule
   ]
 })
