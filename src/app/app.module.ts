@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { AuthModule } from '@auth0/auth0-angular';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AuthModule.forRoot({
       domain: 'dev--myiblhx.jp.auth0.com',
       clientId: 'noxSP1gQyM6R5QG0FWspbxC1bg6Z5xEI'
