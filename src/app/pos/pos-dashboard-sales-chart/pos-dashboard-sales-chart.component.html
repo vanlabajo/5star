@@ -1,0 +1,36 @@
+<div class="card shadow-sm mb-2">
+  <div class="card-header bg-transparent">
+    <h5 class="card-title mb-0">
+      <i class="bi bi-pie-chart-fill text-cool"></i>
+      2021 Sales
+    </h5>
+  </div>
+  <div class="card-body p-0">
+    <div class="d-flex">
+      <ngx-charts-area-chart [xAxis]="true"
+                             [yAxis]="true"
+                             [curve]="curve"
+                             [scheme]="colorScheme"
+                             [results]="data">
+      </ngx-charts-area-chart>
+    </div>
+  </div>
+  <div class="card-footer p-0 bg-transparent text-center">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col p-3 border border-top-0 border-bottom-0 border-left-0">
+          <h6>₱20,550.00</h6>
+          <p class="text-uppercase mb-0" style="font-size:x-small">Total Revenue</p>
+        </div>
+        <div class="col p-3 border border-top-0 border-bottom-0 border-left-0">
+          <h6>₱550.00</h6>
+          <p class="text-uppercase mb-0" style="font-size:x-small">Total Cost</p>
+        </div>
+        <div class="col p-3">
+          <h6>₱20,050.00</h6>
+          <p class="text-uppercase mb-0" style="font-size:x-small">Total Profit</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
