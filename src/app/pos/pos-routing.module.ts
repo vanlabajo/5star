@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
 import { PosDashboardComponent } from './pos-dashboard/pos-dashboard.component';
 import { PosComponent } from './pos/pos.component';
 
@@ -13,7 +14,8 @@ const routes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: PosDashboardComponent }
+          { path: 'checkout', component: PosCheckoutComponent, data: { animation: 'posCheckout' } },
+          { path: '', component: PosDashboardComponent, data: { animation: 'posDashboard' } }
         ]
       }
     ]
