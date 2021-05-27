@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { slideInAnimation } from '../../animations';
+import { routerAnimation } from '../../animations';
 
 @Component({
   selector: 'app-pos',
   templateUrl: './pos.component.html',
   styleUrls: ['./pos.component.css'],
-  animations: [slideInAnimation]
+  animations: [routerAnimation]
 })
 export class PosComponent {
   getAnimationData(outlet: RouterOutlet) {
