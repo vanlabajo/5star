@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { PosDashboardSalesChartComponent } from './pos-dashboard-sales-chart.component';
 
@@ -8,7 +10,8 @@ describe('PosDashboardSalesChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PosDashboardSalesChartComponent ]
+      declarations: [PosDashboardSalesChartComponent],
+      imports: [NoopAnimationsModule, NgxChartsModule]
     })
     .compileComponents();
   });

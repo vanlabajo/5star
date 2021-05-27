@@ -1,23 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { PosComponent } from './pos.component';
+import { ProductsComponent } from './products.component';
 
-describe('PosComponent', () => {
-  let component: PosComponent;
-  let fixture: ComponentFixture<PosComponent>;
+describe('ProductsComponent', () => {
+  let component: ProductsComponent;
+  let fixture: ComponentFixture<ProductsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PosComponent],
-      imports: [RouterTestingModule, NoopAnimationsModule]
+      declarations: [ProductsComponent, ],
+      imports: [RouterTestingModule, NoopAnimationsModule, NgbPaginationModule]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PosComponent);
+    fixture = TestBed.createComponent(ProductsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

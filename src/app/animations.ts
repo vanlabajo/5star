@@ -1,6 +1,9 @@
 import { animate, group, query, style, transition, trigger } from "@angular/animations";
 
-export const slideInAnimation = trigger('routerAnimations', [
+export const routerAnimation = trigger('routerAnimations', [
+  transition('* => posDashboard', fade()),
+  transition('* => productList', fade()),
+
   transition('* => posCheckout', slideTo('left')),
   transition('posCheckout => *', slideTo('right'))
 ]);
@@ -28,6 +31,43 @@ function slideTo(direction: 'left' | 'right'): any[] {
       ], optional),
       query(':enter', [
         animate('600ms ease-in-out', style({ [direction]: '0', opacity: 1 }))
+      ], optional),
+
+      // force the inner content to be animated
+      // with a real but not visible animation
+      // the inner content is not removed until the animation ends
+      // we use the same 200ms
+      query(':leave *', [
+        style({}),
+        animate(1, style({}))
+      ], optional)
+    ])
+  ];
+}
+
+function fade(): any[] {
+  const optional = { optional: true };
+  return [
+    query(':enter, :leave', [
+      style({
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%'
+      })
+    ], optional),
+    query(':enter', [
+      style({ opacity: 0 })
+    ], optional),
+    query(':leave', [
+      style({ opacity: 1 })
+    ], optional),
+    group([
+      query(':leave', [
+        animate('600ms ease-in-out', style({ opacity: 0 }))
+      ], optional),
+      query(':enter', [
+        animate('600ms ease-in-out', style({ opacity: 1 }))
       ], optional),
 
       // force the inner content to be animated

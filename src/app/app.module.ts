@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PosModule } from './pos/pos.module';
 import { AuthModule } from '@auth0/auth0-angular';
+import { ProductsModule } from './products/products.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthModule } from '@auth0/auth0-angular';
       clientId: 'noxSP1gQyM6R5QG0FWspbxC1bg6Z5xEI'
     }),
     PosModule,
+    ProductsModule,
     AppRoutingModule,
   ],
   providers: [],
