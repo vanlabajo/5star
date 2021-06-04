@@ -1,15 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing'
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
+import { ToastService } from './toast/toast.service';
+import { ToastsContainerComponent } from './toast/toasts-container.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [RouterTestingModule]
+      declarations: [AppComponent, ToastsContainerComponent],
+      imports: [RouterTestingModule, NgbToastModule],
+      providers: [ToastService]
     }).compileComponents();
   });
 
