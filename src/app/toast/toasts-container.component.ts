@@ -8,7 +8,7 @@ import { ToastService } from './toast.service';
       *ngFor="let toast of toastService.toasts"
       [class]="toast.classname"
       [autohide]="true"
-      [delay]="toast.delay || 1000"
+      [delay]="toast.delay || 5000"
       (hidden)="toastService.remove(toast)"
     >
       <i class="bi" [class]="toast.bootstrapIcon || 'bi-info-circle'"></i>

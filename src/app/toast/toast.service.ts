@@ -12,15 +12,15 @@ export class ToastService {
   }
 
   showWarning(text: string) {
-    this.toasts.push({ text: text, classname: 'bg-warning text-light', delay: 5000 });
+    this.toasts.push({ text: text, classname: 'bg-warning text-light' });
   }
 
   showSuccess(text: string) {
-    this.toasts.push({ text: text, classname: 'bg-cool text-light', delay: 5000 });
+    this.toasts.push({ text: text, classname: 'bg-cool text-light' });
   }
 
   showError(text: string) {
-    this.toasts.push({ text: text, classname: 'bg-danger text-light', delay: 5000, bootstrapIcon: 'bi-info-circle' });
+    this.toasts.push({ text: text, classname: 'bg-danger text-light' });
   }
 
   remove(toast) {
