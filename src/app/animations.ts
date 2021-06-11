@@ -1,11 +1,14 @@
 import { animate, group, query, style, transition, trigger } from "@angular/animations";
 
 export const routerAnimation = trigger('routerAnimations', [
-  transition('* => posDashboard', fade()),
-  transition('* => productList', fade()),
+  transition('productList => productForm', slideTo('right')),
+  transition('productForm => productList', slideTo('left')),
 
-  transition('* => posCheckout', slideTo('left')),
-  transition('posCheckout => *', slideTo('right'))
+  transition('posDashboard => posCheckout', slideTo('left')),
+  transition('posCheckout => *', slideTo('right')),
+
+  transition('* => posDashboard', fade()),
+  transition('* => productList', fade())
 ]);
 
 function slideTo(direction: 'left' | 'right'): any[] {

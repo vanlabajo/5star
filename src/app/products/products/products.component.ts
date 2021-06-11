@@ -11,7 +11,7 @@ import { routerAnimation } from '../../animations';
 })
 export class ProductsComponent {
 
-  constructor(private paginationConfig: NgbPaginationConfig) {
+  constructor(paginationConfig: NgbPaginationConfig) {
     paginationConfig.pageSize = 30;
   }
 

@@ -1,125 +1,75 @@
-<div class="container-fluid mt-5" style="overflow:auto">
-  <form class="mb-3">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search by name or barcode">
-      <div class="input-group-append">
-        <a class="btn btn-cool text-white">
-          <i class="bi bi-search"></i>
-        </a>
-      </div>
-    </div>
-  </form>
+<div class="container-fluid">
+  <div class="mt-5">
 
-  <div class="card">
-    <div class="card-header bg-transparent">
-      <div class="d-flex justify-content-between">
-        <h5 class="card-title mb-0 align-self-center">
-          <i class="bi bi-inboxes-fill text-cool"></i>
-          Products
-        </h5>
-        <a class="btn btn-cool text-white">
-          Add new
-        </a>
+    <div class="input-group cool mt-1 mb-3">
+      <input #searchBox id="search-box" (input)="search(searchBox.value)" type="text" class="form-control" placeholder="Search by name or barcode">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-cool text-white"><i class="bi bi-search"></i></button>
       </div>
     </div>
-    <div class="card-body p-0">
-      <table class="table table-light table-striped mb-0">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Sales</th>
-            <th>More</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="align-middle">
-              Some Product
-            </td>
-            <td class="align-middle">
-              ₱13
-            </td>
-            <td class="align-middle">
-              <small class="text-success mr-1">
-                <i class="bi bi-arrow-up-short"></i>
-                12%
-              </small>
-              12,000 Sold
-            </td>
-            <td class="align-middle text-center">
-              <a href="#" class="text-muted">
-                <i class="bi bi-search"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">
-              Another Product
-            </td>
-            <td class="align-middle">
-              ₱29
-            </td>
-            <td class="align-middle">
-              <small class="text-warning mr-1">
-                <i class="bi bi-arrow-down-short"></i>
-                0.5%
-              </small>
-              123,234 Sold
-            </td>
-            <td class="align-middle text-center">
-              <a href="#" class="text-muted">
-                <i class="bi bi-search"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">
-              Amazing Product
-            </td>
-            <td class="align-middle">
-              ₱1,230
-            </td>
-            <td class="align-middle">
-              <small class="text-danger mr-1">
-                <i class="bi bi-arrow-down-short"></i>
-                3%
-              </small>
-              198 Sold
-            </td>
-            <td class="align-middle text-center">
-              <a href="#" class="text-muted">
-                <i class="bi bi-search"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">
-              Perfect Item <span class="badge bg-danger text-white">New</span>
-            </td>
-            <td class="align-middle">
-              ₱199
-            </td>
-            <td class="align-middle">
-              <small class="text-success mr-1">
-                <i class="bi bi-arrow-up-short"></i>
-                63%
-              </small>
-              87 Sold
-            </td>
-            <td class="align-middle text-center">
-              <a href="#" class="text-muted">
-                <i class="bi bi-search"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+      <span class="card-title mb-0 align-self-center">
+        <i class="bi bi-inboxes-fill text-cool"></i>
+        Products
+      </span>
+      <a class="btn btn-cool text-white" routerLink="/products/form">
+        Add new
+      </a>
+    </h4>
+
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <table class="table table-light table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Cost</th>
+              <th>Price</th>
+              <th>Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of pagedResult.data">
+              <td class="align-middle">
+                <a class="text-cool" routerLink="/products/form/{{product.id}}">
+                  {{product.name}}
+                  <br />{{product.upc}}
+                </a>                
+              </td>
+              <td class="align-middle">₱{{product.cost}}</td>
+              <td class="align-middle text-cool">₱{{product.price}}</td>
+              <td class="align-middle text-cool">{{product.quantity}}</td>
+            </tr>
+            <tr class="table-warning"
+                *ngIf="pagedResult.data.length===0">
+              <td colspan="4">No records found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <div class="row mt-3" *ngIf="pagedResult.collectionSize > pagedQuery.pageInfo.pageSize">
+
+      <div class="col-sm-5">
+        <p class="text-center text-sm-left mb-0">
+          Showing {{ (pagedQuery.pageInfo.pageSize * (pagedQuery.pageInfo.page - 1)) + 1 }}
+          to {{ (pagedQuery.pageInfo.pageSize * pagedQuery.pageInfo.page) - (pagedQuery.pageInfo.page - pagedResult.data.length) }}
+          of {{ pagedResult.collectionSize }} records
+        </p>
+      </div>
+
+      <div class="col-sm-7">
+        <ngb-pagination class="d-flex justify-content-sm-end justify-content-center page-cool"
+                        [(page)]="pagedQuery.pageInfo.page"
+                        [pageSize]="pagedQuery.pageInfo.pageSize"
+                        [collectionSize]="pagedResult.collectionSize"
+                        (pageChange)="getProducts()">
+        </ngb-pagination>
+      </div>
+    </div>
+
   </div>
 
-  <ngb-pagination class="d-flex justify-content-center mt-3 page-cool"
-                  [collectionSize]="100">
-  </ngb-pagination>
-  
 </div>
