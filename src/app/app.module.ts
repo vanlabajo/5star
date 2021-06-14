@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
-import { NgbToastModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BarcodeScannerDialogComponent } from './dialog/barcode-scanner-dialog.component';
+import { ConfirmationDialogComponent } from './dialog/confirmation-dialog.component';
 import { HttpErrorHandler } from './http-error-handler/http-error-handler.service';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { DataLoadingInterceptor } from './http-interceptors/data-loading-interceptor';
@@ -23,7 +26,9 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
     AppComponent,
     PageNotFoundComponent,
     ToastsContainerComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConfirmationDialogComponent,
+    BarcodeScannerDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
     AuthModule.forRoot({
       ...environment.auth0
     }),
+    ZXingScannerModule,
     NgbToastModule,
     NgbModalModule,
     PosModule,
