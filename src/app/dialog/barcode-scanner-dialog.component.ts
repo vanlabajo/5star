@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { BarcodeFormat } from '@zxing/library';
 
 @Component({
   selector: 'barcode-scanner-dialog',
@@ -8,12 +8,17 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
     <form>
       <div class="modal-body">
         <zxing-scanner #scanner
-          [enable]="scannerEnabled"
+          [tryHarder]="true"
           [(device)]="desiredDevice"
+          [formats]="allowedFormats"
+          [videoConstraints]="videoConstraints"
+          [timeBetweenScans]="timeBetweenScans"
+          (camerasFound)="onCamerasFound($event)"
+          (scanSuccess)="onScanSuccess($event)"
         ></zxing-scanner>
       </div>
       <div class="modal-footer">
-        <select class="form-control"
+        <select class="form-control" #devices
                 (change)="onCameraSelected($event.target.value)">
           <option *ngFor="let availableDevice of availableDevices"
                   [selected]="desiredDevice.deviceId == availableDevice.deviceId"
@@ -28,34 +33,46 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
   ]
 })
 export class BarcodeScannerDialogComponent implements OnInit {
-  @ViewChild('scanner', { static: true })
-  scanner: ZXingScannerComponent;
+  @ViewChild('devices') devices: ElementRef;
 
-  scannerEnabled: boolean = true;
   availableDevices: MediaDeviceInfo[];
   desiredDevice: MediaDeviceInfo = null;
+  allowedFormats: BarcodeFormat[];
+  videoConstraints: MediaTrackConstraints;
+  timeBetweenScans: number;
 
   constructor(private activeModal: NgbActiveModal) { }
 
-
   ngOnInit(): void {
-    this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
-      this.availableDevices = devices;
-      this.desiredDevice = null;
+    this.allowedFormats = [BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128];
+    this.videoConstraints = {
+      width: { min: 640, ideal: 1920 },
+      height: { min: 400, ideal: 1080 },
+      aspectRatio: { ideal: 1.7777777778 }
+    };
+    this.timeBetweenScans = 100; //100ms
+  }
 
-      if (this.availableDevices.length > 1) {
-        const defaultCamera = this.availableDevices.filter(e => e.label.toLocaleLowerCase().indexOf('back') > -1);
-        if (defaultCamera !== null && defaultCamera !== undefined) {
-          this.desiredDevice = defaultCamera[0];
-        } else {
-          this.desiredDevice = this.availableDevices[0];
-        }
+  onCamerasFound(devices: MediaDeviceInfo[]): void {
+    this.availableDevices = devices;
+    this.desiredDevice = null;
+
+    if (this.availableDevices.length > 1) {
+      const defaultCamera = this.availableDevices.filter(e => e.label.toLocaleLowerCase().indexOf('back') > -1);
+      if (defaultCamera !== null && defaultCamera !== undefined) {
+        this.desiredDevice = defaultCamera[0];
       } else {
         this.desiredDevice = this.availableDevices[0];
       }
-    });
+    } else {
+      this.desiredDevice = this.availableDevices[0];
+    }
 
-    this.scanner.scanSuccess.subscribe(result => this.activeModal.close(result));
+    this.devices.nativeElement.blur();
+  }
+
+  onScanSuccess(scanResult: string): void {
+    this.activeModal.close(scanResult);
   }
 
   onCameraSelected(deviceId: string): void {
