@@ -9,6 +9,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PosDashboardSalesChartComponent } from './pos-dashboard-sales-chart/pos-dashboard-sales-chart.component';
 import { PosDashboardSalesFigureComponent } from './pos-dashboard-sales-figure/pos-dashboard-sales-figure.component';
 import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
+import { PosPriceCheckComponent } from './pos-price-check/pos-price-check.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
     PosDashboardSalesChartComponent,
     PosDashboardSalesFigureComponent,
     PosCheckoutComponent,
+    PosPriceCheckComponent,
   ],
   imports: [
     CommonModule,

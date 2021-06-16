@@ -6,6 +6,8 @@ export const routerAnimation = trigger('routerAnimations', [
 
   transition('posDashboard => posCheckout', slideTo('left')),
   transition('posCheckout => *', slideTo('right')),
+  transition('posDashboard => posPriceCheck', slideTo('right')),
+  transition('posPriceCheck => *', slideTo('left')),
 
   transition('* => posDashboard', fade()),
   transition('* => productList', fade())
