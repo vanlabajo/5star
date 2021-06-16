@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { BarcodeScannerDialogComponent } from './barcode-scanner-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
@@ -20,6 +21,9 @@ export class DialogService {
 
   scanBarcode$(): Observable<string> {
     const scanner = this.modalService.open(BarcodeScannerDialogComponent, { centered: true });
-    return scanner.closed;
+    return from(scanner.result)
+      .pipe(
+        catchError(() => of(''))
+      );
   }
 }
