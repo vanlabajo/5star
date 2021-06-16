@@ -10,7 +10,8 @@ export const routerAnimation = trigger('routerAnimations', [
   transition('posPriceCheck => *', slideTo('left')),
 
   transition('* => posDashboard', fade()),
-  transition('* => productList', fade())
+  transition('* => productList', fade()),
+  transition('* => authProfile', fade())
 ]);
 
 function slideTo(direction: 'left' | 'right'): any[] {

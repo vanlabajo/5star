@@ -2,7 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule as Auth0Module } from '@auth0/auth0-angular';
 import { NgbModalModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
@@ -19,6 +19,7 @@ import { PosModule } from './pos/pos.module';
 import { ProductsModule } from './products/products.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ToastsContainerComponent } from './toast/toasts-container.component';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AuthModule.forRoot({
+    Auth0Module.forRoot({
       ...environment.auth0
     }),
     ZXingScannerModule,
@@ -42,6 +43,7 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
     NgbModalModule,
     PosModule,
     ProductsModule,
+    AuthModule,
     AppRoutingModule,
   ],
   providers: [
