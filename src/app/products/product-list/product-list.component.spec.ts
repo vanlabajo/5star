@@ -22,6 +22,10 @@ describe('ProductListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
+    component.pagedResult = {
+      data: [],
+      collectionSize: 0
+    };
     fixture.detectChanges();
   });
 

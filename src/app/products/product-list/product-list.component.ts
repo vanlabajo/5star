@@ -20,10 +20,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  pagedResult: PagedResult<Product> = {
-    data: [],
-    collectionSize: 0
-  };
+  pagedResult!: PagedResult<Product>;
 
   private searchTerms = new Subject<string>();
 
