@@ -10,6 +10,7 @@ import { PosDashboardSalesChartComponent } from './pos-dashboard-sales-chart/pos
 import { PosDashboardSalesFigureComponent } from './pos-dashboard-sales-figure/pos-dashboard-sales-figure.component';
 import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
 import { PosPriceCheckComponent } from './pos-price-check/pos-price-check.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PosPriceCheckComponent } from './pos-price-check/pos-price-check.compon
   ],
   imports: [
     CommonModule,
+    FormsModule,
     NgxChartsModule,
     NgbCarouselModule,
     PosRoutingModule
