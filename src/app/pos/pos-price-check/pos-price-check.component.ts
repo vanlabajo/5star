@@ -4,6 +4,7 @@ import { DialogService } from '../../dialog/dialog.service';
 import { Product } from '../../products/product.interface';
 import { ProductService } from '../../products/product.service';
 import { SpinnerService } from '../../spinner/spinner.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-pos-price-check',
@@ -17,18 +18,19 @@ export class PosPriceCheckComponent implements OnInit {
     private router: Router,
     private dialog: DialogService,
     private productService: ProductService,
+    private cartService: CartService,
     public spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
     this.dialog.scanBarcode$()
-      .subscribe(upc => {
-        if (upc && upc.trim() && upc.length > 0) {
-          this.productService.getProductByNameOrUpc(upc)
-            .subscribe(product => this.product = product);
-        }
-        else {
-          this.product = {} as Product;
+      .subscribe(result => {
+        if (result) {
+          const upc = result.trim();
+          if (upc.length > 0) {
+            this.productService.getProductByNameOrUpc(upc)
+              .subscribe(product => this.product = product);
+          }
         }
       });
   }
@@ -38,5 +40,10 @@ export class PosPriceCheckComponent implements OnInit {
       this.productService.getProductByNameOrUpc(term)
         .subscribe(product => this.product = product);
     }    
+  }
+
+  addToCart(): void {
+    this.cartService.addItem(this.product);
+    this.router.navigateByUrl('/pos/checkout');
   }
 }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpErrorHandler } from '../../http-error-handler/http-error-handler.service';
 import { ProductService } from '../../products/product.service';
+import { CartService } from '../cart.service';
 
 import { PosPriceCheckComponent } from './pos-price-check.component';
 
@@ -14,7 +15,7 @@ describe('PosPriceCheckComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
-      providers: [ProductService, HttpErrorHandler],
+      providers: [ProductService, HttpErrorHandler, CartService],
       declarations: [ PosPriceCheckComponent ]
     })
     .compileComponents();
