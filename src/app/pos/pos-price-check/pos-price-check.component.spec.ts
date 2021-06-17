@@ -4,26 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpErrorHandler } from '../../http-error-handler/http-error-handler.service';
 import { ProductService } from '../../products/product.service';
-import { ToastService } from '../../toast/toast.service';
 import { CartService } from '../cart.service';
 
-import { PosCheckoutComponent } from './pos-checkout.component';
+import { PosPriceCheckComponent } from './pos-price-check.component';
 
-describe('PosCheckoutComponent', () => {
-  let component: PosCheckoutComponent;
-  let fixture: ComponentFixture<PosCheckoutComponent>;
+describe('PosPriceCheckComponent', () => {
+  let component: PosPriceCheckComponent;
+  let fixture: ComponentFixture<PosPriceCheckComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
-      declarations: [PosCheckoutComponent],
-      providers: [CartService, ProductService, HttpErrorHandler, ToastService]
+      providers: [ProductService, HttpErrorHandler, CartService],
+      declarations: [ PosPriceCheckComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PosCheckoutComponent);
+    fixture = TestBed.createComponent(PosPriceCheckComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

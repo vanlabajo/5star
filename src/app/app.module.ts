@@ -2,11 +2,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule } from '@auth0/auth0-angular';
-import { NgbToastModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthModule as Auth0Module } from '@auth0/auth0-angular';
+import { NgbModalModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BarcodeScannerDialogComponent } from './dialog/barcode-scanner-dialog.component';
+import { ConfirmationDialogComponent } from './dialog/confirmation-dialog.component';
 import { HttpErrorHandler } from './http-error-handler/http-error-handler.service';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { DataLoadingInterceptor } from './http-interceptors/data-loading-interceptor';
@@ -16,6 +19,7 @@ import { PosModule } from './pos/pos.module';
 import { ProductsModule } from './products/products.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ToastsContainerComponent } from './toast/toasts-container.component';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -23,19 +27,23 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
     AppComponent,
     PageNotFoundComponent,
     ToastsContainerComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConfirmationDialogComponent,
+    BarcodeScannerDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AuthModule.forRoot({
+    Auth0Module.forRoot({
       ...environment.auth0
     }),
+    ZXingScannerModule,
     NgbToastModule,
     NgbModalModule,
     PosModule,
     ProductsModule,
+    AuthModule,
     AppRoutingModule,
   ],
   providers: [

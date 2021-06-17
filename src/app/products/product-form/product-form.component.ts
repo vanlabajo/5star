@@ -92,7 +92,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   delete(): void {
-    this.dialog.confirm('Are you sure to delete this product?')
+    this.dialog.confirm$('Are you sure to delete this product?')
       .subscribe(confirm => {
         if (confirm) {
 
@@ -129,6 +129,11 @@ export class ProductFormComponent implements OnInit {
       return true;
     }
 
-    return this.dialog.confirm('Discard changes?');
+    return this.dialog.confirm$('Discard changes?');
+  }
+
+  scanBarcode(): void {
+    this.dialog.scanBarcode$()
+      .subscribe(result => this.product.upc = result);
   }
 }

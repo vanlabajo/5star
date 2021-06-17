@@ -159,6 +159,48 @@ describe('ProductService', () => {
     });
   });
 
+  describe('#getProductByNameOrUpc', () => {
+    let expectedProduct: Product;
+
+    beforeEach(() => {
+      service = TestBed.inject(ProductService);
+      expectedProduct = { id: 1, name: 'A', upc: '1001', cost: 1, price: 1 } as Product;
+    });
+
+    it('should return expected product (called once)', () => {
+
+      service.getProductByNameOrUpc('1001').subscribe(
+        product => expect(product).toEqual(product, 'should return expected product'),
+        fail
+      );
+
+      // ProductService should have made one request to GET product from expected URL
+      const req = httpTestingController.expectOne(`${service.productsUrl}/search/${1001}`);
+      expect(req.request.method).toEqual('GET');
+
+      // Respond with the mock products
+      req.flush(expectedProduct);
+    });
+
+    // This service reports the error but finds a way to let the app keep going.
+    it('should turn 404 into an undefined product result with 3 retries', () => {
+
+      service.getProductByNameOrUpc('1001').subscribe(
+        product => expect(product).toEqual(Object({}), 'should return Object({})'),
+        fail
+      );
+
+      // respond with a 404 and the error message in the body
+      const msg = 'deliberate 404 error';
+      const retryCount = 3;
+      for (var i = 0, c = retryCount + 1; i < c; i++) {
+        let req = httpTestingController.expectOne(`${service.productsUrl}/search/${1001}`);
+        req.flush(msg, { status: 404, statusText: 'Not Found' });
+      }
+
+    });
+  });
+
   describe('#addProduct', () => {
 
     it('should add a product and return it', () => {

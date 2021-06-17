@@ -27,12 +27,20 @@
           </div>
 
           <div class="form-group">
-            <label class="font-weight-normal" for="upc">Barcode</label>
-            <input type="text" class="form-control" id="upc" name="upc" placeholder="Enter product barcode"
-                   required
-                   [(ngModel)]="product.upc"
-                   [ngClass]="{'is-invalid': !upc.valid && !upc.pristine}"
-                   #upc="ngModel">
+            <label class="font-weight-normal" for="upc">Barcode</label>            
+            <div class="input-group">
+              <input type="text" class="form-control" id="upc" name="upc" placeholder="Enter product barcode"
+                     required
+                     [(ngModel)]="product.upc"
+                     [ngClass]="{'is-invalid': !upc.valid && !upc.pristine}"
+                     #upc="ngModel">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-cool text-white"
+                        (click)="scanBarcode()">
+                  <i class="bi bi-camera"></i>
+                </button>
+              </div>
+            </div>
             <div class="invalid-feedback">
               <span *ngIf="!serviceResult.validationErrors || !serviceResult.validationErrors.upc">Please enter the product's barcode.</span>
               <span *ngIf="serviceResult.validationErrors && serviceResult.validationErrors.upc">{{ serviceResult.validationErrors.upc }}</span>

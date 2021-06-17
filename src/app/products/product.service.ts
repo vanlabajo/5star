@@ -48,6 +48,15 @@ export class ProductService {
       );
   }
 
+  getProductByNameOrUpc(nameOrUpc: string): Observable<Product> {
+    const url = `${this.productsUrl}/search/${nameOrUpc}`; // GET api/products/search/8886464331131
+    return this.http.get<Product>(url)
+      .pipe(
+        retry(3),
+        catchError(this.handleError<Product>('getProduct'))
+      );
+  }
+
   //////// Save methods //////////
 
   /** POST: add a new product to the database */
