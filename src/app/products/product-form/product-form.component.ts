@@ -48,7 +48,8 @@ export class ProductFormComponent implements OnInit {
         upc: '',
         cost: 0,
         price: 0,
-        quantity: 0
+        quantity: 0,
+        auditLog: null
       };
     }
   }

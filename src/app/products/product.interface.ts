@@ -1,3 +1,5 @@
+import { AuditLog } from "../models/audit-log.interface";
+
 export interface Product {
   id: number,
   name: string,
@@ -5,9 +7,6 @@ export interface Product {
   price: number,
   cost: number,
   quantity: number,
-  lastUpdateTimeUtc?: Date,
-  lastUpdatedBy?: string,
-  createdTimeUtc?: Date,
-  createdBy?: string,
-  timestamp?: number[]
+  auditLog: AuditLog,
+  timeStamp?: number[]
 }

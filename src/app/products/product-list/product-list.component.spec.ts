@@ -60,7 +60,7 @@ describe('ProductListComponent', () => {
   });
 
   it('should not display no records found when product data exists', () => {
-    component.pagedResult.data = [{ id: 1, name: 'coffee', upc: '10001', price: 0, cost: 0, quantity: 10 }];
+    component.pagedResult.data = [{ id: 1, name: 'coffee', upc: '10001', price: 0, cost: 0, quantity: 10, auditLog: null }];
     fixture.detectChanges();
     const nativeElement: HTMLElement = fixture.nativeElement;
     const td = nativeElement.querySelector('td')!;
