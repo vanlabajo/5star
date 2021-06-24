@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DialogService } from '../../dialog/dialog.service';
+import { ServiceResult } from '../../models/service-result.interface';
 import { Product } from '../../products/product.interface';
 import { ProductService } from '../../products/product.service';
 import { SpinnerService } from '../../spinner/spinner.service';
@@ -13,6 +14,11 @@ import { CartService } from '../cart.service';
 })
 export class PosCheckoutComponent {
   searchTerm!: string;
+  serviceResult: ServiceResult = {
+    success: false,
+    validationErrors: undefined
+  };
+  submitted: boolean = false;
 
   constructor(
     public cartService: CartService,
@@ -64,4 +70,41 @@ export class PosCheckoutComponent {
       });
   }
 
+  reset(): void {
+    this.dialog.confirm$(`Reset this cart?`)
+      .subscribe(confirm => {
+        if (confirm) {
+          this.cartService.resetCart();
+        }
+      });
+  }
+
+  checkout(): void {
+    this.dialog.confirm$(`Checkout this cart?`)
+      .subscribe(confirm => {
+        if (confirm) {
+          this.submitted = true;
+
+          const serviceResult = this.cartService.checkout();
+
+          serviceResult.subscribe(result => {
+            this.serviceResult = result;
+
+            if (result.success) {
+              this.toastService.show("Successfully checked out cart.");
+              this.cartService.resetCart();
+            }
+            else {
+              if (result.validationErrors) {
+                const message = 'Error in checking out cart. Please check for validation errors and try again.';
+                this.toastService.showError(message);
+              }
+            }
+
+            this.submitted = false;
+          });
+
+        }
+      });
+  }
 }
