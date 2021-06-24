@@ -204,7 +204,7 @@ describe('ProductService', () => {
   describe('#addProduct', () => {
 
     it('should add a product and return it', () => {
-      const addProduct: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+      const addProduct: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
       service.addProduct(addProduct).subscribe(
         serviceResult => expect(serviceResult.success).toEqual(true, 'should return successful'),
@@ -225,7 +225,7 @@ describe('ProductService', () => {
 
     // This service reports the error but finds a way to let the app keep going.
     it('should turn 403 error into expected ServiceResult', () => {
-      const addProduct: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+      const addProduct: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
       service.addProduct(addProduct).subscribe(
         serviceResult => expect(serviceResult.success).toEqual(false, 'should return unsuccessful'),
@@ -243,7 +243,7 @@ describe('ProductService', () => {
   describe('#updateProduct', () => {
 
     it('should update a product and return it', () => {
-      const updateProduct: Product = { id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+      const updateProduct: Product = { id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
       service.updateProduct(updateProduct).subscribe(
         serviceResult => expect(serviceResult.success).toEqual(true, 'should return successful'),
@@ -264,7 +264,7 @@ describe('ProductService', () => {
 
     // This service reports the error but finds a way to let the app keep going.
     it('should turn 404 error into expected ServiceResult', () => {
-      const updateProduct: Product = { id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+      const updateProduct: Product = { id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
       service.updateProduct(updateProduct).subscribe(
         serviceResult => expect(serviceResult.success).toEqual(false, 'should return unsuccessful'),

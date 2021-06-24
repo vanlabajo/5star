@@ -25,8 +25,8 @@ describe('CartService', () => {
     service = TestBed.inject(CartService);
 
     expectedItems = [
-      new CartItem({ id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 1 }, 1),
-      new CartItem({ id: 2, name: 'B', upc: '1002', cost: 2, price: 2, quantity: 2 }, 2)
+      new CartItem({ id: 1, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 1, auditLog: null }, 1),
+      new CartItem({ id: 2, name: 'B', upc: '1002', cost: 2, price: 2, quantity: 2, auditLog: null }, 2)
     ];
 
   });
@@ -83,7 +83,7 @@ describe('CartService', () => {
   });
 
   it('should checkout the cart and return a ServiceResult', () => {
-    const product: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+    const product: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
     service.addItem(product);
 
@@ -106,7 +106,7 @@ describe('CartService', () => {
 
   // This service reports the error but finds a way to let the app keep going.
   it('should turn 404 error into expected ServiceResult', () => {
-    const product: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+    const product: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10, auditLog: null };
 
     service.addItem(product);
 

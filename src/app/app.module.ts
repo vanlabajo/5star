@@ -20,6 +20,7 @@ import { ProductsModule } from './products/products.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ToastsContainerComponent } from './toast/toasts-container.component';
 import { AuthModule } from './auth/auth.module';
+import { InvoicesModule } from './invoices/invoices.module';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { AuthModule } from './auth/auth.module';
     PosModule,
     ProductsModule,
     AuthModule,
+    InvoicesModule,
     AppRoutingModule,
   ],
   providers: [

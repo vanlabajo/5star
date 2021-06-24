@@ -9,9 +9,13 @@ export const routerAnimation = trigger('routerAnimations', [
   transition('posDashboard => posPriceCheck', slideTo('right')),
   transition('posPriceCheck => *', slideTo('left')),
 
+  transition('invoiceList => invoiceDetail', slideTo('right')),
+  transition('invoiceDetail => invoiceList', slideTo('left')),
+
   transition('* => posDashboard', fade()),
   transition('* => productList', fade()),
-  transition('* => authProfile', fade())
+  transition('* => authProfile', fade()),
+  transition('* => invoiceList', fade()),
 ]);
 
 function slideTo(direction: 'left' | 'right'): any[] {
