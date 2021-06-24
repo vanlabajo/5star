@@ -19,15 +19,15 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-4 col-sm-4 p-3 border border-top-0 border-bottom-0 border-left-0">
-          <h6>₱20,550.00</h6>
+          <h6>₱{{ totalRevenue | number }}</h6>
           <p class="text-uppercase mb-0" style="font-size:x-small">Total Revenue</p>
         </div>
         <div class="col-4 col-sm-4 p-3 border border-top-0 border-bottom-0 border-left-0">
-          <h6>₱550.00</h6>
+          <h6>₱{{ totalCost | number }}</h6>
           <p class="text-uppercase mb-0" style="font-size:x-small">Total Cost</p>
         </div>
         <div class="col-4 col-sm-4 p-3">
-          <h6>₱20,050.00</h6>
+          <h6>₱{{ totalProfit | number }}</h6>
           <p class="text-uppercase mb-0" style="font-size:x-small">Total Profit</p>
         </div>
       </div>
