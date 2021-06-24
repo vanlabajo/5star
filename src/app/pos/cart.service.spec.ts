@@ -104,4 +104,22 @@ describe('CartService', () => {
     req.event(expectedResponse);
   });
 
+  // This service reports the error but finds a way to let the app keep going.
+  it('should turn 404 error into expected ServiceResult', () => {
+    const product: Product = { id: 0, name: 'A', upc: '1001', cost: 1, price: 1, quantity: 10 };
+
+    service.addItem(product);
+
+    service.checkout().subscribe(
+      serviceResult => expect(serviceResult.success).toEqual(false, 'should return successful'),
+      fail
+    );
+
+    const req = httpTestingController.expectOne(service.checkoutUrl);
+
+    // respond with a 403 and the error message in the body
+    const msg = 'deliberate 404 error';
+    req.flush(msg, { status: 404, statusText: 'Forbidden' });
+  });
+
 });
