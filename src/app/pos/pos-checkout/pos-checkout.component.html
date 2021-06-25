@@ -7,7 +7,7 @@
                [(ngModel)]="searchTerm"
                (keyup.enter)="search()">
         <div class="input-group-append">
-          <button type="button" class="btn btn-cool text-white"
+          <button type="button" class="btn btn-primary"
                   (click)="scanBarcode()">
             <i class="bi bi-camera"></i>
           </button>
@@ -15,32 +15,32 @@
       </div>
 
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-cool">Customer's cart</span>
-        <span class="badge bg-cool text-white rounded-pill">{{ cartService.items.length }}</span>
+        <span class="text-primary">Customer's cart</span>
+        <span class="badge bg-primary text-white rounded-pill">{{ cartService.items.length }}</span>
       </h4>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-sm"
             *ngIf="cartService.items.length===0">
-          <h6 class="my-0 text-cool">...</h6>
+          <h6 class="my-0 text-primary">...</h6>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-sm"
             *ngFor="let item of cartService.items"
             (click)="removeItem(item.product)">
           <div>
-            <h6 class="my-0">{{ item.product.name }} <span class="text-cool">x {{ item.quantity }}</span></h6>
+            <h6 class="my-0">{{ item.product.name }} <span class="text-primary">x {{ item.quantity }}</span></h6>
             <small class="text-muted">{{ item.product.upc }}</small>
           </div>
-          <span class="text-muted">₱{{ item.total }}</span>
+          <span class="text-muted">{{ item.total | currency:'PHP':'₱' }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
-          <span>Total</span>
-          <strong class="text-cool">₱{{ cartService.total }}</strong>
+          <h6>Total</h6>
+          <strong class="text-primary">{{ cartService.total | currency:'PHP':'₱' }}</strong>
         </li>
       </ul>
 
       <div class="row mt-5 no-gutters">
         <div class="col-6 col-sm-6 pr-1">
-          <button type="button" class="btn btn-lg btn-block btn-cool text-light"
+          <button type="button" class="btn btn-lg btn-block btn-primary"
                   [disabled]="submitted || cartService.items.length === 0"
                   (click)="reset()">
             <i class="bi bi-cart-dash"></i>
@@ -48,7 +48,7 @@
           </button>
         </div>
         <div class="col-6 col-sm-6 pl-1">
-          <button type="button" class="btn btn-lg btn-block btn-cool text-light"
+          <button type="button" class="btn btn-lg btn-block btn-primary"
                   [disabled]="submitted || cartService.items.length === 0"
                   (click)="checkout()">
             <i class="bi bi-cart-check"></i>

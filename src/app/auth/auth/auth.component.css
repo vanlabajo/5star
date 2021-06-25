@@ -1,8 +1,0 @@
-.fixed-navbar-height {
-  height: 100px;
-}
-
-.router-outlet-before-navbar {
-  max-height: calc(100vh - 110px);
-  overflow: auto;
-}

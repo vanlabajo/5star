@@ -1,8 +1,4 @@
-.img-thumbnail.cool {
-  border: 3px solid #a8385d;
+img.rounded-circle {
+  border-width: 3px;
 }
 
-.btn-outline-cool {
-  color: #a8385d;
-  border: 2px solid #a8385d;
-}

@@ -1,11 +1,3 @@
-.text-cool {
-  color: #a8385d;
-}
-
-.btn-cool {
-  background: linear-gradient(#a8385d, #C24770);
-}
-
 ngb-pagination ::ng-deep a {
   color: #a8385d !important;
 }

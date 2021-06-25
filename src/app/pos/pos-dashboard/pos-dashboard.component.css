@@ -1,8 +1,3 @@
-.btn-cool {
-  background: linear-gradient(#a8385d, #C24770);
-}
-
-.btn-outline-cool {
-  color: #a8385d;
-  border: 2px solid #a8385d;
+.btn.rounded-circle {
+  border-width: 2px;
 }

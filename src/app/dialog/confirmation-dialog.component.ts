@@ -14,13 +14,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       <p>{{confirmationMessage}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-cool" (click)="activeModal.close(true)">Yes</button>
+      <button type="button" class="btn btn-primary" (click)="activeModal.close(true)">Yes</button>
       <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">No</button>
     </div>
-  `,
-  styles: [
-    '.btn-cool { background: linear-gradient(#a8385d, #C24770); color: #fff; }'
-  ]
+  `
 })
 export class ConfirmationDialogComponent {
   @Input() confirmationBoxTitle;

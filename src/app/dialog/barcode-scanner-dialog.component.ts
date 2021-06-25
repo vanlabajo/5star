@@ -27,10 +27,7 @@ import { BarcodeFormat } from '@zxing/library';
         </select>
       </div>
     </form>
-  `,
-  styles: [
-    '.btn-cool { background: linear-gradient(#a8385d, #C24770); color: #fff; }'
-  ]
+  `
 })
 export class BarcodeScannerDialogComponent implements OnInit {
   @ViewChild('devices') devices: ElementRef;
