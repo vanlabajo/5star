@@ -5,7 +5,7 @@
       <input #searchBox id="search-box" type="text" class="form-control" placeholder="Search by name or barcode"
              (keyup.enter)="search(searchBox.value)">
       <div class="input-group-append">
-        <button type="button" class="btn btn-cool text-white"
+        <button type="button" class="btn btn-primary"
                 (click)="search(searchBox.value)">
           <i class="bi bi-search"></i>
         </button>
@@ -15,18 +15,26 @@
     <div *ngIf="!(spinnerService.loading$ | async); else loading">
 
       <div class="card shadow-sm text-center" *ngIf="product && product.id > 0; else notfound">
-        <div class="card-header bg-cool">
+        <div class="card-header bg-primary">
           <h4 class="my-0 font-weight-normal text-white">{{product.name}}</h4>
         </div>
         <div class="card-body">
-          <h1 class="card-title pricing-card-title">₱{{product.price}}</h1>
+          <h1 class="card-title">{{ product.price | currency:'PHP':'₱' }}</h1>
           <ul class="list-unstyled mt-3 mb-4">
-            <li><strong>{{product.quantity}}</strong></li>
-            <li class="text-muted">current stock</li>
-            <li><strong>{{product.upc}}</strong></li>
-            <li class="text-muted">barcode</li>
+            <li>
+              <h5 class="mb-0">{{product.quantity}}</h5>
+            </li>
+            <li class="text-muted">
+              <small>Stock on hand</small>
+            </li>
+            <li>
+              <h5 class="mb-0">{{product.upc}}</h5>
+            </li>
+            <li class="text-muted">
+              <small>Barcode</small>
+            </li>
           </ul>
-          <button type="button" class="btn btn-lg btn-block btn-outline-cool"
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary"
                   (click)="addToCart()">
             Proceed to checkout
           </button>

@@ -9,6 +9,7 @@ import { SalesService } from '../sales.service';
   styleUrls: ['./pos-dashboard-sales-chart.component.css']
 })
 export class PosDashboardSalesChartComponent implements OnInit {
+  today = new Date();
   colorScheme = 'cool';
   curve = shape.curveBasis;
   data = [

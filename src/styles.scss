@@ -1,0 +1,15 @@
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.bi.bi-large {
+  @include font-size(2rem);
+}
+
+.navbar.fixed-bottom {
+  height: 9vh;
+}
+
+.router-outlet-before-bottom-navbar {
+  max-height: calc(100vh - 9vh);
+  overflow: auto;
+}

@@ -9,7 +9,7 @@ import { SpinnerService } from './spinner.service';
     </div>
   `,
   styles: [
-    '.fixed-above-nav-bar { position: fixed; z-index: 1030; right: 0; bottom: 100px; opacity: 0; animation: .75s linear infinite spinner-grow; }'
+    '.fixed-above-nav-bar { position: fixed; z-index: 1030; right: 0; bottom: 9vh; opacity: 0; animation: .75s linear infinite spinner-grow; }'
   ]
 })
 export class SpinnerComponent {
