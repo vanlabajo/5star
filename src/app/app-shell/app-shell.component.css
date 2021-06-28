@@ -1,0 +1,10 @@
+.spinner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin-left: -20vw;
+  margin-top: -20vw;
+  z-index: 1030;
+  opacity: 0;
+  animation: .75s linear infinite spinner-grow;
+}
