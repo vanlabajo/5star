@@ -3,7 +3,7 @@
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background: #8fb7c1 url(src/assets/404-bg-content-a.jpg) repeat-x;
+  background: #8fb7c1 url(/assets/404-bg-content-a.jpg) repeat-x;
 }
 
 .bg-content-b {
@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  background: url(src/assets/404-bg-content-b.jpg) 50% 0 no-repeat;
+  background: url(/assets/404-bg-content-b.jpg) 50% 0 no-repeat;
 }
 
 .error-content {
