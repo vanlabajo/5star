@@ -1,7 +1,7 @@
 {
-  "name": "pos-mobile",
-  "short_name": "pos-mobile",
-  "theme_color": "#1976d2",
+  "name": "POS",
+  "short_name": "POS",
+  "theme_color": "#a8385d",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
