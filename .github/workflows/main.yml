@@ -1,4 +1,4 @@
-name: CI Angular app through Github Actions
+name: CI Angular
 on: push
 jobs:
   build:
@@ -16,3 +16,25 @@ jobs:
       - name: Test
         run: |
           npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+        
+      - name: Install NPM Modules
+        run: npm install
+
+      - name: Build Project
+        run: ng run pos-mobile:app-shell:production
+      
+      - name: Deploy to Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: dist/browser # The folder the action should deploy.
