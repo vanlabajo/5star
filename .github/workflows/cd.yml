@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ steps.TagVersion.outputs.version }}
-          path: ${{ steps.TagVersion.outputs.version }}
+          path: release
       
       - name: Get change log
         uses: scottbrenner/generate-changelog-action@master
@@ -65,7 +65,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ${{ steps.TagVersion.outputs.version }}
+          files: release/*
           body: ${{ steps.ChangeLog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
