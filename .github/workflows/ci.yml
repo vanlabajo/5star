@@ -9,9 +9,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+          
+      - name: Install angular-cli
+        run: npm i angular-cli
 
-      - name: Install dependencies
-        run: npm ci --include=dev
+      - name: Install project dependencies
+        run: npm ci
         
       - name: Build
         run: ng run pos-mobile:app-shell:production 
