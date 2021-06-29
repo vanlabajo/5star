@@ -29,6 +29,13 @@ jobs:
       - name: Get tag version
         id: TagVersion
         run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+        
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ TagVersion.outputs.version }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.TagVersion.outputs.version }}
       
       - name: Upload artifact
         if: success()
