@@ -28,8 +28,8 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: dist-artifact
-          path: dist
+          name: 5star
+          path: dist/pos-mobile
           
   release:
     runs-on: ubuntu-latest
@@ -40,10 +40,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: dist-artifact
+          name: 5star
+          path: artifacts
           
       - name: Check downloaded artifact
-        run: ls pos-mobile
+        run: ls artifacts
         
       - name: Get tag version
         id: TagVersion
@@ -69,7 +70,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            pos-mobile/*
+            artifacts/*
           body: ${{ steps.ChangeLog.outputs.changelog }}
           fail_on_unmatched_files: true
         env:
