@@ -1,11 +1,9 @@
 name: Build, Test and Release
-on: 
-  push:
-    tags:
-      - v*
+on: push
       
 jobs:
   build-test-artifact:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
