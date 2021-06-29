@@ -65,7 +65,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ${{ steps.TagVersion.outputs.version }}/*
+          files: ${{ steps.TagVersion.outputs.version }}
           body: ${{ steps.ChangeLog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
