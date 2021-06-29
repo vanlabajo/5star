@@ -43,9 +43,7 @@ jobs:
           name: dist-artifact
           
       - name: Check downloaded artifact
-        run: |
-          ls
-          ls pos-mobile
+        run: ls pos-mobile
         
       - name: Get tag version
         id: TagVersion
@@ -54,13 +52,13 @@ jobs:
       - name: Check tag version
         run: echo ${{ steps.TagVersion.outputs.version }}
         
-      - name: Rename artifact
-        run: mv pos-mobile ${{ steps.TagVersion.outputs.VERSION }} 
+      #- name: Rename artifact
+        #run: mv pos-mobile ${{ steps.TagVersion.outputs.VERSION }}-pos-mobile
         
-      - name: Check after renaming
-        run: |
-          ls
-          ls ${{ steps.TagVersion.outputs.VERSION }} 
+      #- name: Check after renaming
+        #run: |
+          #ls
+          #ls ${{ steps.TagVersion.outputs.VERSION }} 
       
       - name: Get change log
         uses: scottbrenner/generate-changelog-action@master
@@ -70,7 +68,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ${{ steps.TagVersion.outputs.VERSION }}
+          files: pos-mobile/*
           body: ${{ steps.ChangeLog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
