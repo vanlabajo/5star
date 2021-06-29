@@ -21,7 +21,7 @@ jobs:
       
       - name: Get tag version
         id: TagVersion
-        run: echo ::set-output name=version::${GITHUB_REF#refs/*/
+        run: echo ::set-output name=version::${GITHUB_REF#refs/*/}
         
       - name: Check output
         env:
