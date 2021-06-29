@@ -32,7 +32,7 @@ jobs:
         
       - name: Check output
         env:
-          RELEASE_VERSION: ${{ TagVersion.outputs.version }}
+          RELEASE_VERSION: ${{ steps.TagVersion.outputs.version }}
         run: |
           echo $RELEASE_VERSION
           echo ${{ steps.TagVersion.outputs.version }}
