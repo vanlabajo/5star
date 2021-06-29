@@ -16,7 +16,7 @@ jobs:
       
       - name: Get tag version
         id: TagVersion
-        run: echo ::set-output name=version::${ git tag}
+        run: echo ::set-output name=version::$( git tag )
         
       - name: Check output
         env:
