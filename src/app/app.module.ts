@@ -21,6 +21,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ToastsContainerComponent } from './toast/toasts-container.component';
 import { AuthModule } from './auth/auth.module';
 import { InvoicesModule } from './invoices/invoices.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { InvoicesModule } from './invoices/invoices.module';
     BarcodeScannerDialogComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     Auth0Module.forRoot({
@@ -47,6 +48,12 @@ import { InvoicesModule } from './invoices/invoices.module';
     AuthModule,
     InvoicesModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

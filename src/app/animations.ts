@@ -13,6 +13,8 @@ export const routerAnimation = trigger('routerAnimations', [
   transition('invoiceDetail => invoiceList', slideTo('left')),
 
   transition('* => posDashboard', fade()),
+  transition('* => posCheckout', fade()),
+  transition('* => posPriceCheck', fade()),
   transition('* => productList', fade()),
   transition('* => authProfile', fade()),
   transition('* => invoiceList', fade()),
