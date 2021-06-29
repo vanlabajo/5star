@@ -1,5 +1,8 @@
 name: Build, Test and Release
-on: release
+on:
+  push:
+    tags:
+      - 'v*'
       
 jobs:
   build-test-artifact:
