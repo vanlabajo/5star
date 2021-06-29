@@ -70,6 +70,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          body: ${{ steps.ChangeLog.outputs.changelog }}
           files: |
             artifacts/**
           
