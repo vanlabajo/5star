@@ -1,7 +1,7 @@
-name: Test and Build
+name: Build and Test
 on: push
 jobs:
-  test:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,24 +13,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
+      - name: Build
+        run: npm run ng run pos-mobile:app-shell:production
+        
       - name: Test
         run: |
           npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-    
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: Install project dependencies
-        run: npm ci
-        
-      - name: Install Angular CLI
-        run: npm i -g @angular/cli
-        
-      - name: Build App Shell
-        run: ng run pos-mobile:app-shell:production
