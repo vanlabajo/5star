@@ -65,7 +65,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ steps.TagVersion.outputs.version }}
-          body_path: ${{ steps.ChangeLog.outputs.changelog }}
+          body: ${{ steps.ChangeLog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
