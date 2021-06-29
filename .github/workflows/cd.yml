@@ -43,7 +43,9 @@ jobs:
           name: dist-artifact
           
       - name: Check downloaded artifact
-        run: ls
+        run: |
+          ls
+          ls pos-mobile
         
       - name: Get tag version
         id: TagVersion
@@ -54,6 +56,11 @@ jobs:
         
       - name: Rename artifact
         run: mv pos-mobile ${{ steps.TagVersion.outputs.VERSION }} 
+        
+      - name: Check after renaming
+        run: |
+          ls
+          ls ${{ steps.TagVersion.outputs.VERSION }} 
       
       - name: Get change log
         uses: scottbrenner/generate-changelog-action@master
