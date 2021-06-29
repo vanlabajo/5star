@@ -10,13 +10,13 @@ jobs:
         with:
           node-version: 14.x
           
-      - name: Install angular-cli
-        run: npm i angular-cli
+      - name: Install Angular CLI
+        run: npm i @angular/cli
 
       - name: Install project dependencies
         run: npm ci
         
-      - name: Build
+      - name: Build App Shell
         run: ng run pos-mobile:app-shell:production 
 
       - name: Test
