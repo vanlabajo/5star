@@ -19,6 +19,13 @@ jobs:
       
       - name: Build
         run: npm run ng run pos-mobile:app-shell:production
+       
+      - name: Set base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+          html_path: dist/pos-mobile/browser/index.html
+          base_href: '/MyProjectName/'
+
       
       - name: Deploy to Github Pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
