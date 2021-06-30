@@ -41,10 +41,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact
-          path: artifacts
+          path: artifact
           
       - name: Check downloaded artifact
-        run: ls artifacts
+        run: ls artifact
         
       - name: Get tag version
         id: TagVersion
@@ -57,7 +57,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: ${{ steps.TagVersion.outputs.VERSION }}.zip
-          path: artifacts/*
+          path: artifact/*
           
       - name: Check archived artifact
         run: ls
