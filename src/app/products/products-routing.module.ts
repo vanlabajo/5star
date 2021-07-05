@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
+import { AuthGuard } from '../auth/auth.guard';
 import { CanDeactivateGuard } from '../guards/can-deactivate.guard';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';

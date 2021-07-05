@@ -17,6 +17,7 @@ export const routerAnimation = trigger('routerAnimations', [
   transition('* => posPriceCheck', fade()),
   transition('* => productList', fade()),
   transition('* => authProfile', fade()),
+  transition('* => authLogin', fade()),
   transition('* => invoiceList', fade()),
 ]);
 
