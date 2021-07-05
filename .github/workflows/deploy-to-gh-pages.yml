@@ -1,6 +1,8 @@
 name: Deploy to Github Pages
 on: 
   push:
+    branches:
+      - main
     tags:
       - '*'
       
@@ -24,7 +26,7 @@ jobs:
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
         with:
           html_path: dist/pos-mobile/browser/index.html
-          base_href: '/5star-mobile/'
+          base_href: '/${{ github.event.repository.name }}/'
       
       - name: Deploy to Github Pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
