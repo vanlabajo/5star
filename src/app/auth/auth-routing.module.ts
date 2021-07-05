@@ -1,19 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
+import { AuthGuard } from '../auth/auth.guard';
 import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         children: [
-          { path: 'profile', component: ProfileComponent, data: { animation: 'authProfile' } }
+          {
+            path: 'login',
+            component: LoginComponent,
+            data: { animation: 'authLogin' }
+          },
+          {
+            path: 'profile',
+            component: ProfileComponent,
+            canActivate: [AuthGuard],
+            data: { animation: 'authProfile' }
+          }          
         ]
       }
     ]

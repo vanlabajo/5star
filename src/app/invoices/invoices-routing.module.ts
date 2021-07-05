@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
+import { AuthGuard } from '../auth/auth.guard';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoicesComponent } from './invoices/invoices.component';

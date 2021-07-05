@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
+import { AuthGuard } from '../auth/auth.guard';
 import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
 import { PosDashboardComponent } from './pos-dashboard/pos-dashboard.component';
 import { PosPriceCheckComponent } from './pos-price-check/pos-price-check.component';
