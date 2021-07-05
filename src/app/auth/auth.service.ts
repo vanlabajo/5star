@@ -28,7 +28,7 @@ export class AuthService {
     if (!this.isLoggedIn) {
       const baseHref = this.locationStrategy.getBaseHref();
       let redirectUri = window.location.origin;
-      if (baseHref && baseHref !== '/') redirectUri = `${redirectUri}/${baseHref}`;
+      if (baseHref && baseHref !== '/') redirectUri = `${redirectUri}${baseHref}`;
 
       this.auth0.loginWithRedirect({
         redirect_uri: redirectUri,
