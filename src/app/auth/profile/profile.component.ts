@@ -1,7 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,8 +7,11 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  constructor(
-    @Inject(DOCUMENT) public document: Document,
-    public authService: AuthService
-  ) { }
+  constructor(private authService: AuthService) { }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  user$ = this.authService.user$;
 }

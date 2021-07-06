@@ -22,9 +22,7 @@ describe('AuthGuard', () => {
   describe('canActivate', () => {
     it('should return true for a logged in user', () => {
       const authServiceMock: any = {
-        isAuthenticated$() {
-          return of(true)
-        },
+        isAuthenticated$: of(true),
         login: jasmine.createSpy('login'),
       };      
       guard = new AuthGuard(authServiceMock, router);
@@ -36,9 +34,7 @@ describe('AuthGuard', () => {
 
     it('should redirect a logged out user', () => {
       const authServiceMock: any = {
-        isAuthenticated$() {
-          return of(false)
-        },
+        isAuthenticated$: of(false),
         login: jasmine.createSpy('login'),
       };
       const routerSpy = spyOn(router, 'parseUrl');
@@ -52,9 +48,7 @@ describe('AuthGuard', () => {
   describe('canActivateChild', () => {
     it('should return true for a logged in user', () => {
       const authServiceMock: any = {
-        isAuthenticated$() {
-          return of(true)
-        },
+        isAuthenticated$: of(true),
         login: jasmine.createSpy('login'),
       };
       guard = new AuthGuard(authServiceMock, router);
@@ -66,9 +60,7 @@ describe('AuthGuard', () => {
 
     it('should redirect a logged out user', () => {
       const authServiceMock: any = {
-        isAuthenticated$() {
-          return of(false)
-        },
+        isAuthenticated$: of(false),
         login: jasmine.createSpy('login'),
       };
       const routerSpy = spyOn(router, 'parseUrl');

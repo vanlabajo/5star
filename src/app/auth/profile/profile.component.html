@@ -2,14 +2,14 @@
   <div class="mt-5">
 
     <div class="card shadow-sm">
-      <div class="card-body text-center" *ngIf="authService.user$ | async as user">
+      <div class="card-body text-center" *ngIf="user$ | async as user">
         <div class="mb-4">
           <img class="img-fluid rounded-circle img-thumbnail border-primary" [src]="user.picture" alt="User profile picture">
         </div>
         <h5 class="card-title">{{ user.name }}</h5>
         <h6 class="card-subtitle mb-4 text-muted">{{ user.email }}</h6>
         <button type="button" class="btn btn-lg btn-block btn-outline-primary"
-                (click)="authService.logout({ returnTo: document.location.origin })">
+                (click)="logout()">
           Logout
         </button>
       </div>
