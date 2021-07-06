@@ -2,7 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule as Auth0Module } from '@auth0/auth0-angular';
+import { AuthModule as Auth0Module, AuthClientConfig as Auth0ClientConfig, AuthConfig } from '@auth0/auth0-angular';
 import { NgbModalModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
@@ -22,6 +22,7 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
 import { AuthModule } from './auth/auth.module';
 import { InvoicesModule } from './invoices/invoices.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -59,8 +60,25 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DataLoadingInterceptor, multi: true },
-    HttpErrorHandler
+    HttpErrorHandler,
+    { provide: LocationStrategy, useClass: PathLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    locationStrategy: LocationStrategy,
+    config: Auth0ClientConfig
+  ) {
+    const baseHref = locationStrategy.getBaseHref();
+    let redirectUri = window.location.origin;
+    if (baseHref && baseHref !== '/') redirectUri = `${redirectUri}${baseHref}`;
+
+    const auth0Config: AuthConfig = {
+      ...environment.auth0,
+      redirectUri: redirectUri
+    };
+
+    config.set(auth0Config);
+  }
+}
