@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule as Auth0Module, AuthClientConfig as Auth0ClientConfig, AuthConfig } from '@auth0/auth0-angular';
@@ -22,7 +22,7 @@ import { ToastsContainerComponent } from './toast/toasts-container.component';
 import { AuthModule } from './auth/auth.module';
 import { InvoicesModule } from './invoices/invoices.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DOCUMENT, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -68,10 +68,11 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 export class AppModule {
   constructor(
     locationStrategy: LocationStrategy,
-    config: Auth0ClientConfig
+    config: Auth0ClientConfig,
+    @Inject(DOCUMENT) document: Document
   ) {
     const baseHref = locationStrategy.getBaseHref();
-    let redirectUri = window.location.origin;
+    let redirectUri = document.location.origin;
     if (baseHref && baseHref !== '/') redirectUri = `${redirectUri}${baseHref}`;
 
     const auth0Config: AuthConfig = {
