@@ -11,6 +11,7 @@ import { PosDashboardSalesFigureComponent } from './pos-dashboard-sales-figure/p
 import { PosCheckoutComponent } from './pos-checkout/pos-checkout.component';
 import { PosPriceCheckComponent } from './pos-price-check/pos-price-check.component';
 import { FormsModule } from '@angular/forms';
+import { BarcodeScannerModule } from '../barcode-scanner/barcode-scanner.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgxChartsModule,
     NgbCarouselModule,
+    BarcodeScannerModule,
     PosRoutingModule
   ]
 })

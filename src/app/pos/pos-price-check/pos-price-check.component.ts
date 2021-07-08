@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from '../../dialog/dialog.service';
 import { Product } from '../../products/product.interface';
 import { ProductService } from '../../products/product.service';
-import { SpinnerService } from '../../spinner/spinner.service';
+import { ToastService } from '../../toast/toast.service';
 import { CartService } from '../cart.service';
 
 @Component({
@@ -11,35 +10,31 @@ import { CartService } from '../cart.service';
   templateUrl: './pos-price-check.component.html',
   styleUrls: ['./pos-price-check.component.css']
 })
-export class PosPriceCheckComponent implements OnInit {
+export class PosPriceCheckComponent {
   product!: Product;
 
   constructor(
     private router: Router,
-    private dialog: DialogService,
     private productService: ProductService,
     private cartService: CartService,
-    public spinnerService: SpinnerService
+    private toastService: ToastService
   ) { }
 
-  ngOnInit(): void {
-    this.dialog.scanBarcode$()
-      .subscribe(result => {
-        if (result) {
-          const upc = result.trim();
-          if (upc.length > 0) {
-            this.productService.getProductByNameOrUpc(upc)
-              .subscribe(product => this.product = product);
-          }
-        }
-      });
-  }
+  onScanSuccess(scanResult: string): void {
+    if (scanResult) {
+      const upc = scanResult.trim();
+      if (upc.length > 0) {
+        this.productService.getProductByNameOrUpc(upc)
+          .subscribe(product => {
+            this.product = product;
 
-  search(term: string): void {
-    if (term) {
-      this.productService.getProductByNameOrUpc(term)
-        .subscribe(product => this.product = product);
-    }    
+            if (!this.product) {
+              this.toastService.showWarning('Unable to find the product you were looking for. Please check if the barcode is correct.');
+            }
+
+          });
+      }
+    }
   }
 
   addToCart(): void {
