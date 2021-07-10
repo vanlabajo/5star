@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../products/product.interface';
 import { ProductService } from '../../products/product.service';
-import { ToastService } from '../../toast/toast.service';
 import { CartService } from '../cart.service';
 
 @Component({
@@ -12,26 +11,27 @@ import { CartService } from '../cart.service';
 })
 export class PosPriceCheckComponent {
   product!: Product;
+  openScanner: boolean = true;
+  searching: boolean = false;
+  scannedUpc: string;
 
   constructor(
     private router: Router,
     private productService: ProductService,
-    private cartService: CartService,
-    private toastService: ToastService
+    private cartService: CartService
   ) { }
 
   onScanSuccess(scanResult: string): void {
     if (scanResult) {
-      const upc = scanResult.trim();
-      if (upc.length > 0) {
-        this.productService.getProductByNameOrUpc(upc)
+      this.scannedUpc = scanResult.trim();
+      if (this.scannedUpc.length > 0) {
+        this.openScanner = false;
+        this.searching = true;
+
+        this.productService.getProductByNameOrUpc(this.scannedUpc)
           .subscribe(product => {
             this.product = product;
-
-            if (!this.product) {
-              this.toastService.showWarning('Unable to find the product you were looking for. Please check if the barcode is correct.');
-            }
-
+            this.searching = false;
           });
       }
     }

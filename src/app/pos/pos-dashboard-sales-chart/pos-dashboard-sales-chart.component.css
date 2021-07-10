@@ -1,1 +1,9 @@
+.chart {
+  height: 18vh;
+}
 
+@media (orientation: landscape) {
+  .chart {
+    height: 39vh;
+  }
+}
