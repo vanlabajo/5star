@@ -4,6 +4,7 @@
 
 .scanner-video-wrapper {
   height: 100%;
+  width: 100%;
   margin: auto;
   background: rgba(0, 0, 0, 0.7);
   z-index: 1;
