@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, BinaryBitmap, DecodeHintType, HTMLCanvasElementLuminanceSource, HybridBinarizer } from '@zxing/library';
 
@@ -119,8 +119,8 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
 
     const rect = video.getBoundingClientRect();
     const width = rect.width - (rect.width * 0.10);
-    const height = rect.height - (rect.height * 0.5);
-    const left = (rect.width - width) / 2;
+    const height = width / 3;
+    const left = rect.left + ((rect.width - width) / 2);
     const top = rect.top + ((rect.height - height) / 2);
 
     const frame = this.frameElemRef.nativeElement;
@@ -136,7 +136,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
 
       // crop the video stream according to frame
       const width = video.videoWidth - (video.videoWidth * 0.10);
-      const height = video.videoHeight - (video.videoHeight * 0.5);
+      const height = width / 3;
       const left = (video.videoWidth - width) / 2;
       const top = (video.videoHeight - height) / 2;
 
@@ -168,11 +168,8 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
     }
   }
 
-  //@HostListener('window:resize')
-  //onResize() {
-  //  this.closeScanner();
-  //  this.updateCanvas();
-  //  this.centerFrame();
-  //  this.scanFrame();
-  //}
+  @HostListener('window:resize')
+  onResize() {
+    this.centerFrame();
+  }
 }
