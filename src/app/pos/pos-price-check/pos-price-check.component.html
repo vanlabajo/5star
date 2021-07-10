@@ -1,30 +1,62 @@
-<div class="card shadow-sm text-center" *ngIf="product && product.id > 0; else scanner">
-  <div class="card-header bg-primary">
-    <h4 class="my-0 font-weight-normal text-white">{{product.name}}</h4>
-  </div>
-  <div class="card-body">
-    <h1 class="card-title">{{ product.price | currency:'PHP':'₱' }}</h1>
-    <ul class="list-unstyled mt-3 mb-4">
-      <li>
-        <h5 class="mb-0">{{product.quantity}}</h5>
-      </li>
-      <li class="text-muted">
-        <small>Stock on hand</small>
-      </li>
-      <li>
-        <h5 class="mb-0">{{product.upc}}</h5>
-      </li>
-      <li class="text-muted">
-        <small>Barcode</small>
-      </li>
-    </ul>
-    <button type="button" class="btn btn-lg btn-block btn-outline-primary"
-            (click)="addToCart()">
-      Proceed to checkout
-    </button>
+<div class="container-fluid" *ngIf="!openScanner">
+  <div class="mt-5">
+
+    <div class="input-group mt-1 mb-3">
+      <input id="scanned-upc" type="text" class="form-control"
+             disabled
+             [ngModel]="scannedUpc">
+    </div>
+
+    <div class="card shadow-sm text-center" *ngIf="searching">
+      <div class="card-body">
+        <div class="spinner-border text-primary mb-3" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <p class="card-text">Searching...</p>
+      </div>
+    </div>
+
+    <div *ngIf="!searching">
+      <div class="card shadow-sm text-center" *ngIf="product && product.id > 0; else notfound">
+        <div class="card-header bg-primary">
+          <h4 class="my-0 font-weight-normal text-white">{{product.name}}</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title">{{ product.price | currency:'PHP':'₱' }}</h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+              <h5 class="mb-0">{{product.quantity}}</h5>
+            </li>
+            <li class="text-muted">
+              <small>Stock on hand</small>
+            </li>
+            <li>
+              <h5 class="mb-0">{{product.upc}}</h5>
+            </li>
+            <li class="text-muted">
+              <small>Barcode</small>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary"
+                  (click)="addToCart()">
+            Proceed to checkout
+          </button>
+        </div>
+      </div>
+
+      <ng-template #notfound>
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Product not found</h5>
+            <p class="card-text">Unable to find the product you were looking for. Please check if the barcode is correct.</p>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+
   </div>
 </div>
 
-<ng-template #scanner>
+<div *ngIf="openScanner">
   <one-dimentional-scanner (scanSuccess)="onScanSuccess($event)"></one-dimentional-scanner>
-</ng-template>
+</div>
