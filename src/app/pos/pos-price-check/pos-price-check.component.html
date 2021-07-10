@@ -58,5 +58,7 @@
 </div>
 
 <div *ngIf="openScanner">
-  <one-dimentional-scanner (scanSuccess)="onScanSuccess($event)"></one-dimentional-scanner>
+  <one-dimentional-scanner
+    (scanSuccess)="onScanSuccess($event)"
+   ></one-dimentional-scanner>
 </div>

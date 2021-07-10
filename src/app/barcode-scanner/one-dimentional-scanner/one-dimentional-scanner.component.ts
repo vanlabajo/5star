@@ -141,6 +141,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
       const top = (video.videoHeight - height) / 2;
 
       const canvas = this.canvasElemRef.nativeElement;
+      canvas.style.display = 'none';
       canvas.width = width;
       canvas.height = height;
       const canvasContext = canvas.getContext('2d');
@@ -148,6 +149,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
       canvasContext.fillStyle = 'white';
       canvasContext.fill();
       canvasContext.drawImage(video, left, top, width, height, 0, 0, width, height);
+      canvas.style.display = 'block';
 
       const luminanceSource = new HTMLCanvasElementLuminanceSource(canvas);
       const hybridBinarizer = new HybridBinarizer(luminanceSource);
@@ -170,6 +172,11 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
 
   @HostListener('window:resize')
   onResize() {
+    this.centerFrame();
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
     this.centerFrame();
   }
 }
