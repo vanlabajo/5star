@@ -5,11 +5,26 @@
   @include font-size(2rem);
 }
 
-.navbar.fixed-bottom {
-  height: 9vh;
+.router-outlet-before-bottom-navbar {
+  overflow: auto;
 }
 
-.router-outlet-before-bottom-navbar {
-  max-height: calc(100vh - 9vh);
-  overflow: auto;
+@media (orientation: portrait) {
+  .navbar.fixed-bottom {
+    height: 9vh;
+  }
+
+  .router-outlet-before-bottom-navbar {
+    max-height: calc(100vh - 9vh);
+  }
+}
+
+@media (orientation: landscape) {
+  .navbar.fixed-bottom {
+    height: 19vh;
+  }
+
+  .router-outlet-before-bottom-navbar {
+    max-height: calc(100vh - 19vh);
+  }
 }
