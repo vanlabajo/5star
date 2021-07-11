@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, BinaryBitmap, DecodeHintType, HTMLCanvasElementLuminanceSource, HybridBinarizer } from '@zxing/library';
+import { ToastService } from '../../toast/toast.service';
 
 @Component({
   selector: 'one-dimentional-scanner',
@@ -23,7 +24,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
   private barcodeReader: BrowserMultiFormatReader;
   private stream: MediaStream;
 
-  constructor() {
+  constructor(private toastService: ToastService) {
     this.scanSuccess = new EventEmitter();
     this.scanError = new EventEmitter();
     this.scanComplete = new EventEmitter();
@@ -122,6 +123,8 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
     const height = width / 3;
     const left = rect.left + ((rect.width - width) / 2);
     const top = rect.top + ((rect.height - height) / 2);
+
+    this.toastService.show(`Rect left: ${rect.left}:, Vid left: ${video.clientLeft}`);
 
     const frame = this.frameElemRef.nativeElement;
     frame.style.width = width + 'px';
