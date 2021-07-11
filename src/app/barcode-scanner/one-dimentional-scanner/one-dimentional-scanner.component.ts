@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, BinaryBitmap, DecodeHintType, HTMLCanvasElementLuminanceSource, HybridBinarizer } from '@zxing/library';
-import { ToastService } from '../../toast/toast.service';
 
 @Component({
   selector: 'one-dimentional-scanner',
@@ -24,7 +23,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
   private barcodeReader: BrowserMultiFormatReader;
   private stream: MediaStream;
 
-  constructor(private toastService: ToastService) {
+  constructor() {
     this.scanSuccess = new EventEmitter();
     this.scanError = new EventEmitter();
     this.scanComplete = new EventEmitter();
@@ -116,21 +115,21 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
   }
 
   private centerFrame(): void {
-    const video = this.videoElemRef.nativeElement;
+    setTimeout(() => {
+      const video = this.videoElemRef.nativeElement;
 
-    const rect = video.getBoundingClientRect();
-    const width = rect.width - (rect.width * 0.10);
-    const height = width / 3;
-    const left = rect.left + ((rect.width - width) / 2);
-    const top = rect.top + ((rect.height - height) / 2);
+      const rect = video.getBoundingClientRect();
+      const width = rect.width - (rect.width * 0.10);
+      const height = width / 3;
+      const left = rect.left + ((rect.width - width) / 2);
+      const top = rect.top + ((rect.height - height) / 2);
 
-    this.toastService.show(`Rect left: ${rect.left}:, Vid left: ${video.clientLeft}`);
-
-    const frame = this.frameElemRef.nativeElement;
-    frame.style.width = width + 'px';
-    frame.style.height = height + 'px';
-    frame.style.left = left + 'px';
-    frame.style.top = top + 'px';
+      const frame = this.frameElemRef.nativeElement;
+      frame.style.width = width + 'px';
+      frame.style.height = height + 'px';
+      frame.style.left = left + 'px';
+      frame.style.top = top + 'px';
+    }, 500);
   };
 
   private scanFrame(): void {
