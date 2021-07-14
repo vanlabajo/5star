@@ -30,6 +30,7 @@ jobs:
         with:
           name: artifact
           path: dist/pos-mobile/browser
+          retention-days: 1
           
   release:
     runs-on: ubuntu-latest
