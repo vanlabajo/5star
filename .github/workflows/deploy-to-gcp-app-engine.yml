@@ -3,8 +3,9 @@ on:
   push:
     tags:
       - '*'
-      
-build-test-deploy:
+
+jobs:
+  build-test-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
