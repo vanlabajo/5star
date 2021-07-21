@@ -1,0 +1,36 @@
+name: Build, Test and Deploy to GCP
+on: 
+  push:
+    tags:
+      - '*'
+      
+build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: |
+          npm run ng run pos-mobile:app-shell:production
+          cp app.yaml dist/pos-mobile/
+        
+      - name: Test
+        run: |
+          npm test --no-watch --no-progress --browsers=ChromeHeadlessCI
+          
+      - name: Deploy to App Engine
+        if: success()
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          working_directory: dist/pos-mobile
+          deliverables: app.yaml
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          promote: false
