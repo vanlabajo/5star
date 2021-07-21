@@ -17,7 +17,9 @@ build-test-deploy:
         run: npm ci
       
       - name: Build
-        run: npm run ng run pos-mobile:app-shell:production
+        run: |
+          npm run ng run pos-mobile:app-shell:production
+          cp app.yaml dist/pos-mobile/
         
       - name: Test
         run: |
