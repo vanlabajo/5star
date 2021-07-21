@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:5001',
+  baseUrl: 'http://localhost:8080',
   auth0: {
-    domain: 'dev--myiblhx.jp.auth0.com',
-    clientId: 'noxSP1gQyM6R5QG0FWspbxC1bg6Z5xEI',
+    domain: '5star.jp.auth0.com',
+    clientId: 'GQXugt4Tgp0LCl01fhqwfGMclPzQXP5Q',
     audience: 'https://5star-backend-api'
   }
 };

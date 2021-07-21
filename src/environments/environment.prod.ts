@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:4201',
+  baseUrl: 'https://api-xfqdvsdwva-as.a.run.app',
   auth0: {
-    domain: 'dev--myiblhx.jp.auth0.com',
-    clientId: 'noxSP1gQyM6R5QG0FWspbxC1bg6Z5xEI',
+    domain: '5star.jp.auth0.com',
+    clientId: 'GQXugt4Tgp0LCl01fhqwfGMclPzQXP5Q',
     audience: 'https://5star-backend-api'
   }
 };
