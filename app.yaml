@@ -1,0 +1,15 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+  - url: /(.*\.(.+))$
+    secure: always
+    redirect_http_response_code: 301
+    static_files: browser/\1
+    upload: browser/(.*\.(.+))$
+
+  - url: /(.*)
+    static_files: browser/index.html
+    upload: browser/index.html
+    secure: always
