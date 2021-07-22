@@ -89,20 +89,25 @@ jobs:
           
       - name: Check downloaded artifact
         run: |
-          ls artifact
           ls artifact/browser
           
       - name: Copy app.yaml
         run: |
           cp app.yaml artifact/
           ls artifact
-          
-      - name: Deploy to App Engine
+      
+      - name: Setup GCloud
         if: success()
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      
+      - name: Deploy to App Engine        
         uses: google-github-actions/deploy-appengine@main
         with:
           working_directory: artifact/
           deliverables: app.yaml
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          credentials: ${{ secrets.GCP_SA_KEY }}
           promote: false
