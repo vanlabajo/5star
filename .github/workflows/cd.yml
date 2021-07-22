@@ -1,4 +1,4 @@
-name: Build, Test and Release
+name: Build, Test, Release and Deploy to GCP
 on: 
   push:
     tags:
@@ -75,4 +75,34 @@ jobs:
           body: ${{ steps.ChangeLog.outputs.changelog }}
           files: ${{ steps.TagVersion.outputs.VERSION }}.zip
           
-  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: artifact/browser
+          
+      - name: Check downloaded artifact
+        run: |
+          ls artifact
+          ls artifact/browser
+          
+      - name: Copy app.yaml
+        run: |
+          cp app.yaml artifact/
+          ls artifact
+          
+      - name: Deploy to App Engine
+        if: success()
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          working_directory: artifact/
+          deliverables: app.yaml
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          promote: false
