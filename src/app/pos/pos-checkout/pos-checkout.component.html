@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!openScanner">
   <div class="mt-5">
 
     <div class="input-group mb-3">
@@ -57,4 +57,12 @@
     </div>
 
   </div>
+</div>
+
+<div *ngIf="openScanner"
+     (click)="onClick()">
+  <one-dimentional-scanner
+    class="scanner"
+    (scanSuccess)="onScanSuccess($event)"
+  ></one-dimentional-scanner>
 </div>

@@ -19,6 +19,7 @@ export class PosCheckoutComponent {
     validationErrors: undefined
   };
   submitted: boolean = false;
+  openScanner: boolean = false;
 
   constructor(
     public cartService: CartService,
@@ -45,20 +46,7 @@ export class PosCheckoutComponent {
   }
 
   scanBarcode(): void {
-    this.dialog.scanBarcode$()
-      .subscribe(result => {
-
-        if (result) {
-          const upc = result.trim();
-          if (upc.length > 0) {
-
-            this.searchTerm = upc;
-            this.search();
-
-          }
-        }
-
-      });
+    this.openScanner = true;
   }
 
   removeItem(product: Product): void {
@@ -106,5 +94,22 @@ export class PosCheckoutComponent {
 
         }
       });
+  }
+
+  onScanSuccess(scanResult: string): void {
+    if (scanResult) {
+      const upc = scanResult.trim();
+      if (upc.length > 0) {
+
+        this.searchTerm = upc;
+        this.search();
+
+      }
+      this.openScanner = false;
+    }
+  }
+
+  onClick(): void {
+    this.openScanner = false;
   }
 }
