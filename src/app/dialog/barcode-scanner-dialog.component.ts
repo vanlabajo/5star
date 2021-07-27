@@ -5,28 +5,17 @@ import { BarcodeFormat } from '@zxing/library';
 @Component({
   selector: 'barcode-scanner-dialog',
   template: `
-    <form>
-      <div class="modal-body">
-        <zxing-scanner #scanner
-          [tryHarder]="true"
-          [(device)]="desiredDevice"
-          [formats]="allowedFormats"
-          [videoConstraints]="videoConstraints"
-          [timeBetweenScans]="timeBetweenScans"
-          (camerasFound)="onCamerasFound($event)"
-          (scanSuccess)="onScanSuccess($event)"
-        ></zxing-scanner>
-      </div>
-      <div class="modal-footer">
-        <select class="form-control" #devices
-                (change)="onCameraSelected($event.target.value)">
-          <option *ngFor="let availableDevice of availableDevices"
-                  [selected]="desiredDevice.deviceId == availableDevice.deviceId"
-                  [value]="availableDevice.deviceId">{{availableDevice.label}}
-          </option>
-        </select>
-      </div>
-    </form>
+    <div class="modal-body">
+      <zxing-scanner #scanner
+        [tryHarder]="true"
+        [(device)]="desiredDevice"
+        [formats]="allowedFormats"
+        [videoConstraints]="videoConstraints"
+        [timeBetweenScans]="timeBetweenScans"
+        (camerasFound)="onCamerasFound($event)"
+        (scanSuccess)="onScanSuccess($event)"
+      ></zxing-scanner>
+    </div>
   `
 })
 export class BarcodeScannerDialogComponent implements OnInit {

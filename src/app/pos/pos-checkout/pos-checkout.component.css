@@ -1,0 +1,11 @@
+@media (orientation: portrait) {
+  .scanner {
+    height: 91vh;
+  }
+}
+
+@media (orientation: landscape) {
+  .scanner {
+    height: 81vh;
+  }
+}

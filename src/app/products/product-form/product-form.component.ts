@@ -21,6 +21,7 @@ export class ProductFormComponent implements OnInit {
     validationErrors: undefined
   };
   submitted: boolean = false;
+  openScanner: boolean = false;
   @ViewChild('productForm') private productForm!: NgForm;
 
   constructor(
@@ -134,7 +135,17 @@ export class ProductFormComponent implements OnInit {
   }
 
   scanBarcode(): void {
-    this.dialog.scanBarcode$()
-      .subscribe(result => this.product.upc = result);
+    this.openScanner = true;
+  }
+
+  onScanSuccess(scanResult: string): void {
+    if (scanResult) {
+      this.product.upc = scanResult.trim();
+      this.openScanner = false;
+    }
+  }
+
+  onClick(): void {
+    this.openScanner = false;
   }
 }
