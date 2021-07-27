@@ -2,6 +2,11 @@
   display: block;
 }
 
+.scanner {
+  height: 100%;
+  width: 100%;
+}
+
 .scanner-video-wrapper {
   height: 100%;
   width: 100%;
@@ -11,6 +16,7 @@
 }
 
   .scanner-video-wrapper video {
+    display: block;
     object-fit: contain;
     position: relative;
     margin: 0 auto;
@@ -18,28 +24,16 @@
   }
 
 @media (orientation: portrait) {
-  .scanner {
-    height: calc(100vh - 9vh);
-  }
-
   .scanner-video-wrapper video {
     width: 100%;
     height: auto;
-    top: 50%;
-    transform: translateY(-50%);
   }
 }
 
 @media (orientation: landscape) {
-  .scanner {
-    height: calc(100vh - 19vh);
-  }
-
   .scanner-video-wrapper video {
     width: auto;
     height: 100%;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 

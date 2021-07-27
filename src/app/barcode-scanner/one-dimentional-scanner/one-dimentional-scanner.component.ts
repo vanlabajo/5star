@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, BinaryBitmap, DecodeHintType, HTMLCanvasElementLuminanceSource, HybridBinarizer } from '@zxing/library';
+import { BarcodeCameraService } from '../barcode-camera.service';
 
 @Component({
   selector: 'one-dimentional-scanner',
@@ -18,17 +19,14 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
   ready: boolean = false;
 
   private timeout: number = 500;
-  private hasNavigator: boolean;
-  private isMediaDevicesSupported: boolean;
   private barcodeReader: BrowserMultiFormatReader;
-  private stream: MediaStream;
 
-  constructor() {
+  constructor(
+    private barcodeCameraService: BarcodeCameraService
+  ) {
     this.scanSuccess = new EventEmitter();
     this.scanError = new EventEmitter();
     this.scanComplete = new EventEmitter();
-    this.hasNavigator = typeof navigator !== 'undefined';
-    this.isMediaDevicesSupported = this.hasNavigator && !!navigator.mediaDevices;
   }
 
   ngOnInit(): void {
@@ -41,77 +39,22 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
     });
   }
 
-  ngAfterViewInit(): void {
-    this.openStream();  
+  async ngAfterViewInit() {
+    const video = this.videoElemRef.nativeElement;
+    video.addEventListener('play', () => {
+
+      this.centerFrame();
+      this.ready = true;
+      // start barcode reader process
+      this.scanFrame();
+    });
+
+    video.srcObject = await this.barcodeCameraService.getUserMedia();
   }
 
-  ngOnDestroy(): void {
-    this.closeStream();
+  ngOnDestroy() {
+    this.barcodeCameraService.terminateStream();
     this.barcodeReader = undefined;
-    this.stream = undefined;
-  }
-
-  private async openStream() {
-
-    if (!this.hasNavigator) {
-      console.error('Can\'t ask for permission, navigator is not present.');
-      return;
-    }
-
-    if (!this.isMediaDevicesSupported) {
-      console.error('Can\'t get user media, this is not supported.');
-      return;
-    }
-
-    try {
-      const constraints: MediaStreamConstraints = {
-        audio: false, video: {
-          facingMode: 'environment',
-          width: { min: 640, ideal: 1920 },
-          height: { min: 400, ideal: 1080 },
-          aspectRatio: { ideal: 1.7777777778 }
-        }
-      };
-
-      this.stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-      const video = this.videoElemRef.nativeElement;
-      video.addEventListener('play', () => {
-
-        this.centerFrame();
-        this.ready = true;
-        // start barcode reader process
-        this.scanFrame();
-      });
-
-      video.srcObject = this.stream;
-    }
-    catch (err) {
-      switch (err.name) {
-        case 'NotSupportedError':
-          console.warn('Usually caused by not secure origins.', err.message);
-          break;
-        case 'NotAllowedError':
-          console.warn('User denied permission.', err.message);
-          break;
-        case 'NotFoundError':
-          console.warn('No cameras found.', err.message);
-          break;
-        case 'NotReadableError':
-          console.warn('Couldn\'t read the device(s)\'s stream, it\'s probably in use by another app.', err.message);
-          break;
-        default:
-          console.warn('I was not able to define if I have permissions for the camera or not.', err);
-          break;
-      }
-    }
-  }
-
-  private closeStream() {
-    if (this.stream) {
-      this.stream.getTracks().forEach(t => t.stop());
-      this.stream = null;
-    }
   }
 
   private centerFrame(): void {
@@ -119,8 +62,8 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
       const video = this.videoElemRef.nativeElement;
 
       const rect = video.getBoundingClientRect();
-      const width = rect.width - (rect.width * 0.10);
-      const height = width / 3;
+      const width = rect.width - (rect.width * 0.15);
+      const height = width / 2;
       const left = rect.left + ((rect.width - width) / 2);
       const top = rect.top + ((rect.height - height) / 2);
 
@@ -133,18 +76,19 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
   };
 
   private scanFrame(): void {
-    if (this.stream) {
-      const video = this.videoElemRef.nativeElement;
+    const video = this.videoElemRef.nativeElement;
+
+    if (video.srcObject) {     
 
       // crop the video stream according to frame
-      const width = video.videoWidth - (video.videoWidth * 0.10);
-      const height = width / 3;
+      const width = video.videoWidth - (video.videoWidth * 0.15);
+      const height = width / 2;
       const left = (video.videoWidth - width) / 2;
       const top = (video.videoHeight - height) / 2;
 
       const canvas = this.canvasElemRef.nativeElement;
-      canvas.width = width;
-      canvas.height = height;
+      canvas.width = Math.ceil(video.videoWidth - (video.videoWidth * 0.15));
+      canvas.height = Math.ceil(width / 2);
       const canvasContext = canvas.getContext('2d');
       canvasContext.rect(0, 0, width, height);
       canvasContext.fillStyle = 'white';
@@ -159,7 +103,7 @@ export class OneDimentionalScannerComponent implements OnInit, AfterViewInit, On
       try {
         const result = this.barcodeReader.decodeBitmap(binaryBitmap);
         this.scanSuccess.next(result.getText());
-        this.closeStream();
+        this.barcodeCameraService.terminateStream();
       } catch (e) {
         this.scanError.next(e);
       } finally {
