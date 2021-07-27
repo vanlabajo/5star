@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!openScanner">
 
   <div class="mt-5">
 
@@ -111,4 +111,11 @@
     Delete this product
   </button>
 
+</div>
+
+<div *ngIf="openScanner" 
+    (click)="onClick()">
+  <one-dimentional-scanner class="scanner"
+    (scanSuccess)="onScanSuccess($event)"
+  ></one-dimentional-scanner>
 </div>

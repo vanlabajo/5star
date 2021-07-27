@@ -7,6 +7,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
+import { BarcodeScannerModule } from '../barcode-scanner/barcode-scanner.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     NgbPaginationModule,
+    BarcodeScannerModule,
     ProductsRoutingModule
   ]
 })
