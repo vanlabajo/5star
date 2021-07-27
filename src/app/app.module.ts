@@ -23,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
 import { InvoicesModule } from './invoices/invoices.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { DOCUMENT, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BarcodeScannerModule } from './barcode-scanner/barcode-scanner.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { DOCUMENT, LocationStrategy, PathLocationStrategy } from '@angular/commo
       ...environment.auth0
     }),
     ZXingScannerModule,
+    BarcodeScannerModule,
     NgbToastModule,
     NgbModalModule,
     PosModule,
